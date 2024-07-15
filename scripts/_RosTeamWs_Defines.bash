@@ -125,12 +125,10 @@ function RosTeamWS_setup_exports {
 # TODO(denis): add this into setup.bash
 function RosTeamWS_setup_aliases {
 
-# ROS
-  alias rosd="cd \$ROS_WS"
+  # ROS
   alias rosds="cd \$ROS_WS/src"
   alias rosdb="cd \$ROS_WS/build"
   alias rosdi="cd \$ROS_WS/install"
-
 }
 
 function RosTeamWS_setup_ros1_exports {
@@ -143,6 +141,7 @@ export ROSCONSOLE_CONFIG_FILE='~/workspace/ros_ws/rosconsole.config'
 function RosTeamWS_setup_ros1_aliases {
 
 # ROS
+  alias rosd="rtw_ros_cd"
   alias rosdd="cd \$ROS_WS/devel"
 
 # Catkin
@@ -160,15 +159,17 @@ function RosTeamWS_setup_ros2_exports {
 function RosTeamWS_setup_ros2_aliases {
 
 # ROS
-  alias rosdi="cd \$ROS_WS/install"
+  alias rosd="rtw_ros2_cd"
 
 # COLCON
   alias cb="colcon_build"
+  alias cccb="colcon_console_cohesion_build"
   alias cbd="colcon_build_debug"
   alias cbr="colcon_build_release"
   alias cbup="colcon_build_up_to"
 
   alias ct="colcon_test"
+  alias cnt="colcon_no_test_build"
   alias ctup="colcon_test_up_to"
 
   alias ctres="colcon_test_results"
@@ -177,6 +178,22 @@ function RosTeamWS_setup_ros2_aliases {
   alias caup="colcon_all_up_to"
 
   alias crm="colcon_remove"
+}
+
+function rtw_ros_cd {
+  if [ -z "$1" ]; then
+    cd $ROS_WS
+  else
+    roscd $1
+  fi
+}
+
+function rtw_ros2_cd {
+  if [ -z "$1" ]; then
+    cd $ROS_WS
+  else
+    colcon_cd $1
+  fi
 }
 
 
@@ -216,23 +233,31 @@ function colcon_helper_ros2_up_to {
 }
 
 function colcon_build {
-  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo"  "$*"
+  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"  "$*"
+}
+
+function colcon_console_cohesion_build {
+  colcon_helper_ros2 "colcon build --symlink-install --event-handlers console_cohesion+ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"  "$*"
 }
 
 function colcon_build_up_to {
-  colcon_helper_ros2_up_to "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo" "$*"
+  colcon_helper_ros2_up_to "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON" "$*"
 }
 
 function colcon_build_debug {
-  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug" "$*"
+  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON" "$*"
 }
 
 function colcon_build_release {
-  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" "$*"
+  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON" "$*"
 }
 
 function colcon_test {
   colcon_helper_ros2 "colcon test" "$*"
+}
+
+function colcon_no_test_build {
+  colcon_helper_ros2 "colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --cmake-args -DBUILD_TESTING=OFF"  "$*"
 }
 
 function colcon_test_up_to {

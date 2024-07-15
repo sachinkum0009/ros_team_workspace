@@ -49,7 +49,7 @@ Authors: Riyan Jose, Manuel Muth, Dr. Denis
        default="true"
        description="Launch RViz?"/>
   <arg name="robot_controller"
-       default="forward_position_controller"
+       default="joint_trajectory_controller"
        description="Robot controller to start. Choices are: [forward_position_controller, joint_trajectory_controller]."/>
   <arg name="inactive_robot_controller"
        default="forward_position_controller"

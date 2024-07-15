@@ -55,6 +55,7 @@ Consult the repository and [ros2_control documentation](https://ros-controls.git
 ## Loading Controllers
 
 To move the robot you should load and start controllers.
+
 Check below the controller's setup for different components.
 
 ### Mobile base
@@ -185,7 +186,7 @@ Now you should also see your robot represented correctly in the `rviz2`.
    ros2 launch ros2_control_demo_robot test_joint_trajectory_controller.launch.xml
    ```
 
-**NOTE**: You can switch contorllers (step 1 and 2) also with one command:
+**NOTE**: You can switch controllers (step 1 and 2) also with one command:
 ```
 ros2 control switch_controllers --stop-controllers forward_<controller_type>_controller --start-controllers joint_trajectory_controller
 ```
