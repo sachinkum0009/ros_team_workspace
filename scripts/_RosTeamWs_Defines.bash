@@ -28,7 +28,7 @@ fi
 
 # All the possible supported ros distributions supported by rtw
 if [ -z "$rtw_supported_ros_distributions" ]; then
-  readonly rtw_supported_ros_distributions=("noetic" "foxy" "galactic" "humble" "iron" "rolling")
+  readonly rtw_supported_ros_distributions=("noetic" "foxy" "galactic" "humble" "iron" "jazzy" "rolling")
 fi
 
 # Mapping of ubuntu version and supported ros distributions
@@ -37,6 +37,9 @@ if [ -z "$ubuntu_20_04_supported_ros_distributions" ]; then
 fi
 if [ -z "$ubuntu_22_04_supported_ros_distributions" ]; then
   readonly ubuntu_22_04_supported_ros_distributions=("rolling" "humble")
+fi
+if [ -z "$ubuntu_24_04_supported_ros_distributions" ]; then
+  readonly ubuntu_24_04_supported_ros_distributions=("rolling" "jazzy")
 fi
 
 # This needs to be set for every branch
@@ -61,6 +64,10 @@ function set_supported_versions {
     ;;
   humble)
     supported_ros_distributions=("humble")
+    ros_version=2
+    ;;
+  jazzy)
+    supported_ros_distributions=("jazzy")
     ros_version=2
     ;;
   rolling)
@@ -531,6 +538,9 @@ function set_ros_version_for_distro {
       ros_version=2
       ;;
     iron)
+      ros_version=2
+      ;;
+    jazzy)
       ros_version=2
       ;;
     rolling)
