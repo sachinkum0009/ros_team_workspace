@@ -75,7 +75,7 @@ class ImportVerb(VerbExtension):
             type=str,
             help="ROS distro of the workspace.",
             required=True,
-            choices=["humble", "rolling"],
+            choices=["humble", "jazzy", "rolling"],
         )
         parser.add_argument(
             "--standalone-docker-image",
