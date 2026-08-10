@@ -1,9 +1,9 @@
-===========
-Use Cases
-===========
+================
+Use Cases (ROS)
+================
 .. _uc-index:
 
-The RosTeamWS support currently the following use-cases.
+The RTW support currently the following use-cases.
 Check the repository and PRs for other, undocumented use-cases.
 
 .. toctree::
